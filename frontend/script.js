@@ -2,7 +2,7 @@
 // CareerOS Frontend
 // ===============================
 
-const API_URL = "http://127.0.0.1:8000/api";
+const API_URL = "https://careeros-9auv.onrender.com/api";
 
 // Student ID localStorage se milegi
 let STUDENT_ID = localStorage.getItem("careerOSStudentId");
