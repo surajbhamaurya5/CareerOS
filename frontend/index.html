@@ -1,0 +1,5436 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CareerOS — AI Career Intelligence</title>
+
+    <style>
+        /* =====================================================
+           CAREEROS — PREMIUM AI SAAS UI
+           FUNCTIONALITY SAFE — API/JS IDs PRESERVED
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #050816;
+            --bg-2: #080d1d;
+
+            --panel: rgba(13, 19, 39, 0.72);
+            --panel-solid: #0d1327;
+            --panel-light: rgba(255, 255, 255, 0.045);
+
+            --border: rgba(255, 255, 255, 0.085);
+
+            --text: #f7f8ff;
+            --muted: #8993ad;
+            --muted-2: #65708b;
+
+            --accent: #8b5cf6;
+            --accent2: #22d3ee;
+            --accent3: #6366f1;
+
+            --success: #34d399;
+            --warning: #fbbf24;
+            --danger: #fb7185;
+
+            --shadow:
+                0 25px 80px rgba(0, 0, 0, 0.35);
+
+            --glow:
+                0 0 45px rgba(139, 92, 246, 0.15);
+        }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            color: var(--text);
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(99, 102, 241, 0.15),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 15%,
+                    rgba(34, 211, 238, 0.10),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(139, 92, 246, 0.09),
+                    transparent 35%
+                ),
+                var(--bg);
+        }
+
+
+        /* Subtle grid background */
+
+        body::before {
+            content: "";
+
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: -2;
+
+            background-image:
+                linear-gradient(
+                    rgba(255, 255, 255, 0.018) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.018) 1px,
+                    transparent 1px
+                );
+
+            background-size: 55px 55px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent 90%
+                );
+        }
+
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           BACKGROUND ORBS
+        ===================================================== */
+
+        .background {
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+
+            overflow: hidden;
+
+            z-index: -1;
+        }
+
+        .orb {
+            position: absolute;
+
+            border-radius: 50%;
+
+            filter: blur(90px);
+
+            opacity: 0.20;
+
+            animation: floatOrb 12s ease-in-out infinite;
+        }
+
+        .orb.one {
+            width: 330px;
+            height: 330px;
+
+            background: #7c5cff;
+
+            top: -120px;
+            left: -120px;
+        }
+
+        .orb.two {
+            width: 280px;
+            height: 280px;
+
+            background: #00d4ff;
+
+            right: -100px;
+            bottom: -100px;
+
+            animation-delay: -5s;
+        }
+
+
+        /* =====================================================
+           MAIN LAYOUT
+        ===================================================== */
+
+        .app {
+            display: flex;
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            width: 260px;
+
+            min-height: 100vh;
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            z-index: 20;
+
+            padding: 24px 16px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(9, 14, 30, 0.94),
+                    rgba(4, 8, 20, 0.97)
+                );
+
+            border-right:
+                1px solid rgba(255, 255, 255, 0.07);
+
+            backdrop-filter: blur(24px);
+
+            box-shadow:
+                15px 0 60px rgba(0, 0, 0, 0.18);
+
+            overflow-y: auto;
+        }
+
+
+        /* =====================================================
+           LOGO
+        ===================================================== */
+
+        .logo {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 38px;
+
+            padding: 4px 8px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            font-size: 19px;
+
+            font-weight: 900;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #8b5cf6,
+                    #06b6d4
+                );
+
+            box-shadow:
+                0 0 28px rgba(139, 92, 246, 0.35);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .logo-text {
+            font-size: 21px;
+
+            font-weight: 850;
+
+            letter-spacing: -0.8px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #a78bfa 45%,
+                    #22d3ee
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text span {
+            color: #22d3ee;
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        .nav-title {
+            margin:
+                20px 10px 10px;
+
+            color: var(--muted-2);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.7px;
+        }
+
+        .nav-item {
+            position: relative;
+
+            width: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 12px 14px;
+
+            margin-bottom: 5px;
+
+            border:
+                1px solid transparent;
+
+            border-radius: 13px;
+
+            background: transparent;
+
+            color: #8791aa;
+
+            text-align: left;
+
+            transition:
+                transform 0.22s ease,
+                background 0.22s ease,
+                border-color 0.22s ease,
+                color 0.22s ease;
+        }
+
+        .nav-item:hover {
+            color: white;
+
+            background:
+                rgba(255, 255, 255, 0.045);
+
+            border-color:
+                rgba(255, 255, 255, 0.06);
+
+            transform:
+                translateX(3px);
+        }
+
+        .nav-item.active {
+            color: white;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    rgba(139, 92, 246, 0.18),
+                    rgba(34, 211, 238, 0.055)
+                );
+
+            border-color:
+                rgba(139, 92, 246, 0.25);
+
+            box-shadow:
+                inset 3px 0 0 #8b5cf6,
+                0 8px 30px rgba(139, 92, 246, 0.10);
+        }
+
+        .nav-item.active::after {
+            content: "";
+
+            position: absolute;
+
+            right: 12px;
+            top: 50%;
+
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: #22d3ee;
+
+            box-shadow:
+                0 0 12px #22d3ee;
+
+            transform:
+                translateY(-50%);
+        }
+
+
+        /* =====================================================
+           CAREER PROGRESS
+        ===================================================== */
+
+        .progress-box {
+            margin-top: 30px;
+
+            padding: 18px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.045),
+                    rgba(255, 255, 255, 0.018)
+                );
+
+            border:
+                1px solid rgba(255, 255, 255, 0.07);
+
+            box-shadow:
+                inset 0 1px rgba(255, 255, 255, 0.035);
+        }
+
+        .progress-title {
+            margin-bottom: 15px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            text-align: center;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+        .progress-circle {
+            width: 92px;
+            height: 92px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    #07101f 56%,
+                    transparent 57%
+                ),
+                conic-gradient(
+                    #8b5cf6 0deg,
+                    #22d3ee 0deg,
+                    rgba(255, 255, 255, 0.07) 0deg
+                );
+
+            box-shadow:
+                0 0 35px rgba(139, 92, 246, 0.10);
+        }
+
+        .progress-circle span {
+            font-size: 18px;
+
+            font-weight: 850;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+            width: calc(100% - 260px);
+
+            margin-left: 260px;
+
+            padding: 28px 30px 60px;
+
+            min-width: 0;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 24px;
+
+            padding-bottom: 18px;
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.055);
+        }
+
+        .welcome h1 {
+            font-size: 27px;
+
+            line-height: 1.2;
+
+            letter-spacing: -0.8px;
+
+            margin-bottom: 7px;
+        }
+
+        .welcome p {
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+        #userName {
+            background:
+                linear-gradient(
+                    100deg,
+                    #ffffff,
+                    #a78bfa,
+                    #22d3ee
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+        .profile-mini {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            font-size: 15px;
+
+            font-weight: 850;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #8b5cf6,
+                    #09bcdc
+                );
+
+            border:
+                2px solid rgba(255, 255, 255, 0.14);
+
+            box-shadow:
+                0 0 25px rgba(139, 92, 246, 0.28);
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 44px;
+
+            margin-bottom: 22px;
+
+            border-radius: 28px;
+
+            border:
+                1px solid rgba(255, 255, 255, 0.08);
+
+            background:
+                radial-gradient(
+                    circle at 88% 15%,
+                    rgba(34, 211, 238, 0.14),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 15% 100%,
+                    rgba(139, 92, 246, 0.18),
+                    transparent 40%
+                ),
+                linear-gradient(
+                    135deg,
+                    rgba(20, 26, 52, 0.90),
+                    rgba(8, 13, 27, 0.76)
+                );
+
+            box-shadow:
+                var(--shadow),
+                inset 0 1px rgba(255, 255, 255, 0.055);
+
+            backdrop-filter:
+                blur(25px);
+
+            animation:
+                fadeUp 0.7s ease both;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 320px;
+            height: 320px;
+
+            right: -130px;
+            top: -150px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(34, 211, 238, 0.20),
+                    transparent 65%
+                );
+
+            filter: blur(10px);
+
+            pointer-events: none;
+        }
+
+        .hero h2 {
+            position: relative;
+
+            max-width: 760px;
+
+            margin-bottom: 12px;
+
+            font-size:
+                clamp(34px, 4vw, 54px);
+
+            line-height: 1.04;
+
+            letter-spacing: -2.8px;
+
+            font-weight: 850;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #ffffff 0%,
+                    #c4b5fd 45%,
+                    #67e8f9 100%
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            position: relative;
+
+            max-width: 700px;
+
+            color: #929bb3;
+
+            font-size: 15px;
+
+            line-height: 1.75;
+        }
+
+        .hero-actions {
+            position: relative;
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-top: 25px;
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .btn {
+            border: 0;
+
+            padding: 12px 18px;
+
+            border-radius: 12px;
+
+            font-size: 13px;
+
+            font-weight: 750;
+
+            color: white;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .btn:hover {
+            transform:
+                translateY(-2px);
+        }
+
+        .btn:active {
+            transform:
+                translateY(0) scale(0.98);
+        }
+
+        .btn-primary {
+            background:
+                linear-gradient(
+                    135deg,
+                    #8b5cf6,
+                    #6366f1
+                );
+
+            border:
+                1px solid rgba(255, 255, 255, 0.12);
+
+            box-shadow:
+                0 10px 30px rgba(99, 102, 241, 0.25);
+        }
+
+        .btn-primary:hover {
+            box-shadow:
+                0 15px 40px rgba(139, 92, 246, 0.38);
+        }
+
+        .btn-secondary {
+            background:
+                rgba(255, 255, 255, 0.045);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.09);
+
+            color: #e7e9f2;
+        }
+
+        .btn-secondary:hover {
+            background:
+                rgba(255, 255, 255, 0.07);
+
+            border-color:
+                rgba(255, 255, 255, 0.15);
+        }
+
+
+        /* =====================================================
+           STATS
+        ===================================================== */
+
+        .stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            position: relative;
+
+            overflow: hidden;
+
+            min-height: 125px;
+
+            padding: 20px;
+
+            border-radius: 19px;
+
+            border:
+                1px solid rgba(255, 255, 255, 0.07);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(18, 25, 48, 0.84),
+                    rgba(9, 14, 29, 0.76)
+                );
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, 0.20);
+
+            backdrop-filter:
+                blur(20px);
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .stat-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 110px;
+            height: 110px;
+
+            right: -60px;
+            top: -60px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(139, 92, 246, 0.20),
+                    transparent 65%
+                );
+        }
+
+        .stat-card:hover {
+            transform:
+                translateY(-5px);
+
+            border-color:
+                rgba(139, 92, 246, 0.22);
+
+            box-shadow:
+                0 22px 60px rgba(0, 0, 0, 0.30),
+                0 0 35px rgba(139, 92, 246, 0.08);
+        }
+
+        .stat-label {
+            position: relative;
+
+            margin-bottom: 9px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            font-weight: 650;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            position: relative;
+
+            font-size: 27px;
+
+            font-weight: 850;
+
+            letter-spacing: -0.8px;
+        }
+
+        .stat-value.done {
+            color: var(--success);
+
+            text-shadow:
+                0 0 20px rgba(52, 211, 153, 0.18);
+        }
+
+
+        /* =====================================================
+           SECTION TITLE
+        ===================================================== */
+
+        .section-title {
+            margin-bottom: 15px;
+
+            font-size: 18px;
+
+            font-weight: 750;
+
+            letter-spacing: -0.4px;
+        }
+
+
+        /* =====================================================
+           MODULES
+        ===================================================== */
+
+        .modules {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .module {
+            position: relative;
+
+            overflow: hidden;
+
+            min-height: 220px;
+
+            padding: 25px;
+
+            border-radius: 21px;
+
+            border:
+                1px solid rgba(255, 255, 255, 0.075);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(17, 24, 47, 0.84),
+                    rgba(8, 13, 27, 0.78)
+                );
+
+            backdrop-filter:
+                blur(20px);
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .module::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: 0;
+
+            width: 100%;
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(139, 92, 246, 0.75),
+                    rgba(34, 211, 238, 0.75),
+                    transparent
+                );
+
+            opacity: 0.30;
+
+            transition:
+                opacity 0.3s ease;
+        }
+
+        .module:hover {
+            transform:
+                translateY(-7px);
+
+            border-color:
+                rgba(139, 92, 246, 0.24);
+
+            box-shadow:
+                0 25px 65px rgba(0, 0, 0, 0.30),
+                0 0 35px rgba(139, 92, 246, 0.08);
+        }
+
+        .module:hover::after {
+            opacity: 1;
+        }
+
+        .module-icon {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 16px;
+
+            border-radius: 15px;
+
+            font-size: 21px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(139, 92, 246, 0.17),
+                    rgba(34, 211, 238, 0.08)
+                );
+
+            border:
+                1px solid rgba(139, 92, 246, 0.15);
+
+            box-shadow:
+                inset 0 1px rgba(255, 255, 255, 0.05),
+                0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .module h3 {
+            margin-bottom: 8px;
+
+            font-size: 19px;
+
+            letter-spacing: -0.4px;
+        }
+
+        .module p {
+            max-width: 500px;
+
+            margin-bottom: 18px;
+
+            color: #7f8aa4;
+
+            font-size: 13px;
+
+            line-height: 1.65;
+        }
+
+        .module-btn {
+            padding: 10px 14px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255, 255, 255, 0.045);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.08);
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            transition:
+                0.2s ease;
+        }
+
+        .module-btn:hover {
+            background:
+                rgba(139, 92, 246, 0.13);
+
+            border-color:
+                rgba(139, 92, 246, 0.25);
+
+            transform:
+                translateX(3px);
+        }
+
+
+        /* =====================================================
+           LOWER GRID
+        ===================================================== */
+
+        .lower-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                minmax(0, 1fr);
+
+            gap: 20px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================================
+           PANELS
+        ===================================================== */
+
+        .panel {
+            border:
+                1px solid rgba(255, 255, 255, 0.075);
+
+            border-radius: 21px;
+
+            padding: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(16, 23, 45, 0.82),
+                    rgba(8, 13, 27, 0.76)
+                );
+
+            box-shadow:
+                0 18px 55px rgba(0, 0, 0, 0.20);
+
+            backdrop-filter:
+                blur(22px);
+        }
+
+        .panel h2,
+        .panel h3 {
+            letter-spacing: -0.5px;
+        }
+
+
+        /* =====================================================
+           SKILL COVERAGE
+        ===================================================== */
+
+        .skill-row {
+            margin-bottom: 17px;
+        }
+
+        .skill-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-info {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+        }
+
+        .skill-info span:first-child {
+            color: #dfe4f1;
+
+            font-weight: 600;
+        }
+
+        .skill-info span:last-child {
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        .bar {
+            height: 7px;
+
+            overflow: hidden;
+
+            border-radius: 999px;
+
+            background:
+                rgba(255, 255, 255, 0.06);
+        }
+
+        .bar-fill {
+            width: 0;
+
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #8b5cf6,
+                    #6366f1,
+                    #22d3ee
+                );
+
+            box-shadow:
+                0 0 14px rgba(34, 211, 238, 0.18);
+
+            transition:
+                width 1.2s cubic-bezier(.2,.8,.2,1);
+        }
+
+
+        /* =====================================================
+           FORM / PROFILE
+        ===================================================== */
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.7px;
+        }
+
+        .form-control {
+            width: 100%;
+
+            padding: 11px 12px;
+
+            border-radius: 11px;
+
+            border:
+                1px solid rgba(255, 255, 255, 0.08);
+
+            background:
+                rgba(255, 255, 255, 0.035);
+
+            color: white;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .form-control:hover {
+            border-color:
+                rgba(139, 92, 246, 0.25);
+        }
+
+        .form-control:focus {
+            border-color:
+                rgba(139, 92, 246, 0.55);
+
+            background:
+                rgba(139, 92, 246, 0.045);
+
+            box-shadow:
+                0 0 0 4px rgba(139, 92, 246, 0.07);
+        }
+
+        select.form-control option {
+            background: #101827;
+
+            color: white;
+        }
+
+
+        /* =====================================================
+           RESUME UPLOAD
+        ===================================================== */
+
+        .upload-box {
+            position: relative;
+
+            margin-top: 18px;
+
+            padding: 32px 20px;
+
+            text-align: center;
+
+            border:
+                1px dashed rgba(139, 92, 246, 0.30);
+
+            border-radius: 18px;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(139, 92, 246, 0.07),
+                    rgba(255, 255, 255, 0.018)
+                );
+
+            transition:
+                0.25s ease;
+        }
+
+        .upload-box:hover {
+            border-color:
+                rgba(34, 211, 238, 0.55);
+
+            background:
+                rgba(34, 211, 238, 0.035);
+
+            box-shadow:
+                0 0 35px rgba(34, 211, 238, 0.07);
+        }
+
+        .upload-box input {
+            display: none;
+        }
+
+        .upload-label {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 11px 17px;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(139, 92, 246, 0.17),
+                    rgba(99, 102, 241, 0.12)
+                );
+
+            border:
+                1px solid rgba(139, 92, 246, 0.25);
+
+            color: #e8e4ff;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                0.2s ease;
+        }
+
+        .upload-label:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(139, 92, 246, 0.16);
+        }
+
+        .file-name {
+            margin-top: 11px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            word-break: break-all;
+        }
+
+
+        /* =====================================================
+           AI OUTPUT
+        ===================================================== */
+
+        .analysis-output {
+            margin-top: 20px;
+
+            padding: 20px;
+
+            border-radius: 17px;
+
+            background:
+                rgba(255, 255, 255, 0.022);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.065);
+
+            line-height: 1.6;
+
+            animation:
+                resultReveal 0.45s ease both;
+        }
+
+        .analysis-card {
+            padding: 5px;
+        }
+
+        .analysis-section {
+            margin-bottom: 16px;
+
+            padding: 19px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(255, 255, 255, 0.025);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.065);
+
+            transition:
+                0.25s ease;
+        }
+
+        .analysis-section:hover {
+            background:
+                rgba(255, 255, 255, 0.038);
+
+            border-color:
+                rgba(139, 92, 246, 0.15);
+        }
+
+        .analysis-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .analysis-section h3 {
+            margin-bottom: 10px;
+
+            font-size: 16px;
+        }
+
+
+        /* =====================================================
+           SKILL BADGES
+        ===================================================== */
+
+        .skill-badges {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+            margin-top: 10px;
+        }
+
+        .skill-badge {
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 7px 11px;
+
+            border-radius: 999px;
+
+            color: #c9c3ff;
+
+            background:
+                rgba(139, 92, 246, 0.10);
+
+            border:
+                1px solid rgba(139, 92, 246, 0.18);
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            box-shadow:
+                inset 0 1px rgba(255, 255, 255, 0.04);
+        }
+
+
+        /* =====================================================
+           ATS SCORE
+        ===================================================== */
+
+        .ats-score {
+            position: relative;
+
+            margin-bottom: 20px;
+
+            padding: 24px;
+
+            overflow: hidden;
+
+            border-radius: 23px;
+
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(139, 92, 246, 0.14),
+                    transparent 65%
+                ),
+                rgba(255, 255, 255, 0.025);
+
+            border:
+                1px solid rgba(139, 92, 246, 0.15);
+
+            box-shadow:
+                0 0 45px rgba(139, 92, 246, 0.08);
+        }
+
+        .ats-number {
+            font-size: 44px;
+
+            line-height: 1;
+
+            font-weight: 850;
+
+            color: #67e8f9;
+
+            text-shadow:
+                0 0 25px rgba(34, 211, 238, 0.18);
+        }
+
+        .ats-bar {
+            height: 8px;
+
+            margin-top: 14px;
+
+            overflow: hidden;
+
+            border-radius: 999px;
+
+            background:
+                rgba(255, 255, 255, 0.07);
+        }
+
+        .ats-fill {
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #8b5cf6,
+                    #6366f1,
+                    #22d3ee
+                );
+
+            box-shadow:
+                0 0 15px rgba(34, 211, 238, 0.25);
+        }
+
+
+        /* =====================================================
+           PLACEMENT
+        ===================================================== */
+
+        .prep-list {
+            display: grid;
+
+            gap: 10px;
+        }
+
+        .prep-btn {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(255, 255, 255, 0.035);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.075);
+
+            color: #e5e7f0;
+
+            text-align: left;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition:
+                0.2s ease;
+        }
+
+        .prep-btn:hover {
+            background:
+                rgba(139, 92, 246, 0.10);
+
+            border-color:
+                rgba(139, 92, 246, 0.22);
+
+            transform:
+                translateX(3px);
+        }
+
+
+        /* =====================================================
+           TOAST
+        ===================================================== */
+
+        .toast {
+            position: fixed;
+
+            right: 25px;
+
+            bottom: 25px;
+
+            max-width: 360px;
+
+            padding: 14px 18px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(12, 17, 35, 0.90);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.10);
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.35);
+
+            backdrop-filter:
+                blur(18px);
+
+            transform:
+                translateY(120px);
+
+            opacity: 0;
+
+            transition:
+                0.3s ease;
+
+            z-index: 100;
+
+            font-size: 13px;
+        }
+
+        .toast.show {
+            transform:
+                translateY(0);
+
+            opacity: 1;
+        }
+
+
+        /* =====================================================
+           SCROLLBAR
+        ===================================================== */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background:
+                linear-gradient(
+                    #8b5cf6,
+                    #22d3ee
+                );
+
+            border-radius: 999px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background:
+                linear-gradient(
+                    #a78bfa,
+                    #67e8f9
+                );
+        }
+
+
+        /* =====================================================
+           ANIMATIONS
+        ===================================================== */
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+        @keyframes resultReveal {
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+        @keyframes floatOrb {
+            0%,
+            100% {
+                transform:
+                    translate(0, 0);
+            }
+
+            50% {
+                transform:
+                    translate(35px, 25px);
+            }
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .sidebar {
+                width: 230px;
+            }
+
+            .main {
+                width: calc(100% - 230px);
+
+                margin-left: 230px;
+
+                padding:
+                    24px;
+            }
+
+            .stats {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 850px) {
+
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+
+                min-height: auto;
+
+                height: auto;
+
+                border-right: none;
+
+                border-bottom:
+                    1px solid rgba(255, 255, 255, 0.07);
+
+                padding: 16px;
+            }
+
+            .app {
+                display: block;
+            }
+
+            .main {
+                width: 100%;
+
+                margin-left: 0;
+
+                padding: 20px;
+            }
+
+            .logo {
+                margin-bottom: 20px;
+            }
+
+            .nav-title {
+                margin-top: 12px;
+            }
+
+            .progress-box {
+                display: none;
+            }
+
+            .lower-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modules {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 34px;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            .main {
+                padding: 15px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .welcome h1 {
+                font-size: 21px;
+            }
+
+            .avatar {
+                width: 38px;
+                height: 38px;
+            }
+
+            .hero {
+                padding: 28px 22px;
+
+                border-radius: 22px;
+            }
+
+            .hero h2 {
+                font-size: 34px;
+
+                letter-spacing: -1.8px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                min-height: 105px;
+            }
+
+            .module {
+                padding: 21px;
+            }
+
+            .panel {
+                padding: 18px;
+            }
+
+            .toast {
+                left: 15px;
+                right: 15px;
+                bottom: 15px;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         BACKGROUND
+    ===================================================== -->
+
+    <div class="background">
+        <div class="orb one"></div>
+        <div class="orb two"></div>
+    </div>
+
+
+    <!-- =====================================================
+         APP
+    ===================================================== -->
+
+    <div class="app">
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================= -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <div class="logo-icon">
+                    C
+                </div>
+
+                <div class="logo-text">
+                    Career<span>OS</span>
+                </div>
+
+            </div>
+
+
+            <div class="nav-title">
+                Workspace
+            </div>
+
+
+            <button
+                class="nav-item active"
+                data-section="dashboard">
+
+                🏠 Dashboard
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-section="profile">
+
+                👤 Profile
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-section="resume">
+
+                📄 Resume
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-section="placement">
+
+                🎯 Placement
+
+            </button>
+
+
+            <div class="nav-title">
+                Career Intelligence
+            </div>
+
+
+            <button
+                class="nav-item module-nav"
+                data-module="skill-gap">
+
+                📊 Skill Gap
+
+            </button>
+
+
+            <button
+                class="nav-item module-nav"
+                data-module="roadmap">
+
+                🗺️ Career Roadmap
+
+            </button>
+
+
+            <div class="progress-box">
+
+                <div class="progress-title">
+                    Career Progress
+                </div>
+
+                <div class="progress-circle">
+
+                    <span id="progressPercent">
+                        0%
+                    </span>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =================================================
+             MAIN
+        ================================================= -->
+
+        <main class="main">
+
+
+            <!-- TOPBAR -->
+
+            <div class="topbar">
+
+                <div class="welcome">
+
+                    <h1>
+                        Welcome back,
+                        <span id="userName">
+                            Student
+                        </span>
+                        👋
+                    </h1>
+
+                    <p id="targetLabel">
+                        Set your target role to start your career journey.
+                    </p>
+
+                </div>
+
+
+                <div class="profile-mini">
+
+                    <div
+                        class="avatar"
+                        id="avatar">
+
+                        S
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 HERO
+            ================================================= -->
+
+            <section
+                class="hero"
+                id="dashboard">
+
+                <h2>
+                    Build your career with AI.
+                </h2>
+
+                <p>
+                    CareerOS analyzes your resume, identifies skill gaps,
+                    creates a personalized roadmap and prepares you for
+                    placement interviews.
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <button
+                        class="btn btn-primary"
+                        id="startBtn">
+
+                        🚀 Start Career Analysis
+
+                    </button>
+
+
+                    <button
+                        class="btn btn-secondary"
+                        id="tourBtn">
+
+                        ▶ Take a Tour
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 STATS
+            ================================================= -->
+
+            <section class="stats">
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Resume
+                    </div>
+
+                    <div
+                        class="stat-value"
+                          Pending
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Skill Gap
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="s-gap">
+
+                        Pending
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Roadmap
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="s-road">
+
+                        Pending
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Placement
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="s-place">
+
+                        Pending
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 MODULES
+            ================================================= -->
+
+            <h2
+                class="section-title"
+                id="modules">
+
+                Career Intelligence
+
+            </h2>
+
+
+            <section class="modules">
+
+
+                <!-- Resume -->
+
+                <div class="module">
+
+                    <div class="module-icon">
+                        📄
+                    </div>
+
+                    <h3>
+                        Resume Analyzer
+                    </h3>
+
+                    <p>
+                        Upload your resume and let AI extract your
+                        skills, education, projects and experience.
+                    </p>
+
+                    <button
+                        class="module-btn"
+                        data-module="resume"
+                        id="resumeModuleBtn">
+
+                        Analyze Resume →
+
+                    </button>
+
+                </div>
+
+
+                <!-- Skill Gap -->
+
+                <div class="module">
+
+                    <div class="module-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Skill Gap Analyzer
+                    </h3>
+
+                    <p>
+                        Discover the skills you need to reach your
+                        target career role.
+                    </p>
+
+                    <button
+                        class="module-btn"
+                        data-module="skill-gap">
+
+                        Analyze Skill Gap →
+
+                    </button>
+
+                </div>
+
+
+                <!-- Roadmap -->
+
+                <div class="module">
+
+                    <div class="module-icon">
+                        🗺️
+                    </div>
+
+                    <h3>
+                        Career Roadmap
+                    </h3>
+
+                    <p>
+                        Get an AI-generated step-by-step learning
+                        roadmap based on your current skills.
+                    </p>
+
+                    <button
+                        class="module-btn"
+                        data-module="roadmap">
+
+                        Generate Roadmap →
+
+                    </button>
+
+                </div>
+
+
+                <!-- Placement -->
+
+                <div class="module">
+
+                    <div class="module-icon">
+                        🎯
+                    </div>
+
+                    <h3>
+                        Placement Intelligence
+                    </h3>
+
+                    <p>
+                        Prepare technical topics, DSA, interviews
+                        and important projects.
+                    </p>
+
+                    <button
+                        class="module-btn"
+                        data-module="placement">
+
+                        Prepare for Placement →
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 LOWER GRID
+            ================================================= -->
+
+            <section class="lower-grid">
+
+
+                <!-- SKILL COVERAGE -->
+
+                <div class="panel">
+
+                    <h2 class="section-title">
+                        Skill Coverage
+                    </h2>
+
+                </div>
+
+
+                <!-- PROFILE -->
+
+                <div
+                    class="panel"
+                    id="profile">
+
+                    <h2 class="section-title">
+                        Your Profile
+                    </h2>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="profileName"
+                            class="form-control"
+                            placeholder="Enter your name">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Target Role
+                        </label>
+
+                        <select
+                            id="profileRole"
+                            class="form-control">
+
+                            <option value="Data Scientist">
+                                Data Scientist
+                            </option>
+
+                            <option value="Data Analyst">
+                                Data Analyst
+                            </option>
+
+                            <option value="Machine Learning Engineer">
+                                Machine Learning Engineer
+                            </option>
+
+                            <option value="Software Engineer">
+                                Software Engineer
+                            </option>
+                        <label for="target-role">Target Role</label>
+
+
+                        <option value="">Select Target Role</option>
+
+                        <!-- ================= COMPUTER / SOFTWARE ================= -->
+                        <optgroup label="Software & Development">
+                            <option value="Software Engineer">Software Engineer</option>
+                            <option value="Software Developer">Software Developer</option>
+                            <option value="Full Stack Developer">Full Stack Developer</option>
+                            <option value="Frontend Developer">Frontend Developer</option>
+                            <option value="Backend Developer">Backend Developer</option>
+                            <option value="Mobile App Developer">Mobile App Developer</option>
+                            <option value="Web Developer">Web Developer</option>
+                            <option value="Python Developer">Python Developer</option>
+                            <option value="Java Developer">Java Developer</option>
+                            <option value="C++ Developer">C++ Developer</option>
+                        </optgroup>
+
+                        <!-- ================= AI / DATA ================= -->
+                        <optgroup label="AI, ML & Data">
+                            <option value="Data Analyst">Data Analyst</option>
+                            <option value="Data Scientist">Data Scientist</option>
+                            <option value="Data Engineer">Data Engineer</option>
+                            <option value="Machine Learning Engineer">Machine Learning Engineer</option>
+                            <option value="AI Engineer">AI Engineer</option>
+                            <option value="AI/ML Engineer">AI/ML Engineer</option>
+                            <option value="Business Analyst">Business Analyst</option>
+                            <option value="Business Intelligence Analyst">Business Intelligence Analyst</option>
+                        </optgroup>
+
+                        <!-- ================= ECE / EEE / EE ================= -->
+                        <optgroup label="Electronics & Electrical">
+                            <option value="Electronics Engineer">Electronics Engineer</option>
+                            <option value="Electronics Design Engineer">Electronics Design Engineer</option>
+                            <option value="Embedded Systems Engineer">Embedded Systems Engineer</option>
+                            <option value="Embedded Software Engineer">Embedded Software Engineer</option>
+                            <option value="VLSI Design Engineer">VLSI Design Engineer</option>
+                            <option value="VLSI Verification Engineer">VLSI Verification Engineer</option>
+                            <option value="FPGA Engineer">FPGA Engineer</option>
+                            <option value="Hardware Engineer">Hardware Engineer</option>
+                            <option value="Electrical Engineer">Electrical Engineer</option>
+                            <option value="Power Systems Engineer">Power Systems Engineer</option>
+                            <option value="Control Systems Engineer">Control Systems Engineer</option>
+                            <option value="Instrumentation Engineer">Instrumentation Engineer</option>
+                        </optgroup>
+
+                        <!-- ================= MECHANICAL ================= -->
+                        <optgroup label="Mechanical & Manufacturing">
+                            <option value="Mechanical Engineer">Mechanical Engineer</option>
+                            <option value="Design Engineer">Design Engineer</option>
+                            <option value="CAD Engineer">CAD Engineer</option>
+                            <option value="Automotive Engineer">Automotive Engineer</option>
+                            <option value="Manufacturing Engineer">Manufacturing Engineer</option>
+                            <option value="Production Engineer">Production Engineer</option>
+                            <option value="Industrial Engineer">Industrial Engineer</option>
+                            <option value="Robotics Engineer">Robotics Engineer</option>
+                            <option value="Mechatronics Engineer">Mechatronics Engineer</option>
+                            <option value="Quality Engineer">Quality Engineer</option>
+                        </optgroup>
+
+                        <!-- ================= CIVIL ================= -->
+                        <optgroup label="Civil & Infrastructure">
+                            <option value="Civil Engineer">Civil Engineer</option>
+                            <option value="Structural Engineer">Structural Engineer</option>
+                            <option value="Construction Engineer">Construction Engineer</option>
+                            <option value="Site Engineer">Site Engineer</option>
+                            <option value="Geotechnical Engineer">Geotechnical Engineer</option>
+                            <option value="Transportation Engineer">Transportation Engineer</option>
+                            <option value="Environmental Engineer">Environmental Engineer</option>
+                            <option value="Urban Planning Engineer">Urban Planning Engineer</option>
+                        </optgroup>
+
+                        <!-- ================= CHEMICAL ================= -->
+                        <optgroup label="Chemical & Process">
+                            <option value="Chemical Engineer">Chemical Engineer</option>
+                            <option value="Process Engineer">Process Engineer</option>
+                            <option value="Process Design Engineer">Process Design Engineer</option>
+                            <option value="Production Engineer">Production Engineer</option>
+                            <option value="Plant Engineer">Plant Engineer</option>
+                            <option value="Environmental Engineer">Environmental Engineer</option>
+                        </optgroup>
+
+                        <!-- ================= BIOTECH / BIO ================= -->
+                        <optgroup label="Biotechnology & Life Sciences">
+                            <option value="Biotechnologist">Biotechnologist</option>
+                            <option value="Biomedical Engineer">Biomedical Engineer</option>
+                            <option value="Bioinformatics Analyst">Bioinformatics Analyst</option>
+                            <option value="Clinical Research Associate">Clinical Research Associate</option>
+                            <option value="Research Scientist">Research Scientist</option>
+                        </optgroup>
+
+                        <!-- ================= AEROSPACE ================= -->
+                        <optgroup label="Aerospace & Aviation">
+                            <option value="Aerospace Engineer">Aerospace Engineer</option>
+                            <option value="Aeronautical Engineer">Aeronautical Engineer</option>
+                            <option value="Flight Systems Engineer">Flight Systems Engineer</option>
+                            <option value="Avionics Engineer">Avionics Engineer</option>
+                            <option value="Aircraft Design Engineer">Aircraft Design Engineer</option>
+                        </optgroup>
+
+                        <!-- ================= CORE / MANAGEMENT ================= -->
+                        <optgroup label="Core & Management">
+                            <option value="Project Engineer">Project Engineer</option>
+                            <option value="Project Manager">Project Manager</option>
+                            <option value="Product Manager">Product Manager</option>
+                            <option value="Product Analyst">Product Analyst</option>
+                            <option value="Operations Analyst">Operations Analyst</option>
+                            <option value="Supply Chain Analyst">Supply Chain Analyst</option>
+                            <option value="Technical Consultant">Technical Consultant</option>
+                        </optgroup>
+
+                        <!-- ================= CYBER / CLOUD ================= -->
+                        <optgroup label="Cloud, Cybersecurity & IT">
+                            <option value="Cybersecurity Engineer">Cybersecurity Engineer</option>
+                            <option value="Security Analyst">Security Analyst</option>
+                            <option value="Cloud Engineer">Cloud Engineer</option>
+                            <option value="DevOps Engineer">DevOps Engineer</option>
+                            <option value="Site Reliability Engineer">Site Reliability Engineer</option>
+                            <option value="Network Engineer">Network Engineer</option>
+                            <option value="Database Administrator">Database Administrator</option>
+                            <option value="System Administrator">System Administrator</option>
+                        </optgroup>
+
+                        <!-- ================= OTHER ================= -->
+                        <optgroup label="Other">
+                            <option value="Research Scientist">Research Scientist</option>
+                            <option value="Teacher / Educator">Teacher / Educator</option>
+                            <option value="Technical Writer">Technical Writer</option>
+                            <option value="Entrepreneur">Entrepreneur</option>
+                            <option value="Other">Other</option>
+                        </optgroup>
+                    </select>    
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        class="btn btn-primary"
+                        id="saveProfile">
+
+                        Save Profile
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 RESUME
+            ================================================= -->
+
+            <section
+                class="panel"
+                id="resume"
+                style="margin-top:20px;">
+
+                <h2 class="section-title">
+                    Resume Analyzer
+                </h2>
+
+                <p
+                    style="color:var(--muted); font-size:13px;">
+
+                    Upload your PDF resume to analyze your skills,
+                    education, projects and experience.
+
+                </p>
+
+
+                <div class="upload-box">
+
+                    <label
+                        for="resumeFile"
+                        class="upload-label">
+
+                        📄 Choose PDF Resume
+
+                    </label>
+
+
+                    <input
+                        type="file"
+                        id="resumeFile"
+                        accept=".pdf,application/pdf">
+
+
+                    <div
+                        class="file-name"
+                        id="fileName">
+
+                        No file selected
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="resumeOutput"
+                    class="analysis-output"
+                    style="display:none;">
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SKILL GAP OUTPUT
+            ================================================= -->
+
+            <section
+                class="panel"
+                id="skill-gap-output"
+                style="margin-top:20px; display:none;">
+
+                <div id="skillGapOutput"></div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ROADMAP OUTPUT
+            ================================================= -->
+
+            <section
+                class="panel"
+                id="roadmap-output"
+                style="margin-top:20px; display:none;">
+
+                <div id="roadmapOutput"></div>
+
+            </section>
+
+
+            <!-- =================================================
+                 PLACEMENT
+            ================================================= -->
+
+            <section
+                class="panel"
+                id="placement"
+                style="margin-top:20px;">
+
+                <h2 class="section-title">
+                    Placement Preparation
+                </h2>
+
+
+                <div class="prep-list">
+
+                    <button
+                        class="prep-btn"
+                        data-module="placement">
+
+                        🧠 Technical Preparation
+
+                    </button>
+
+
+                    <button
+                        class="prep-btn"
+                        data-module="placement">
+
+                        💻 DSA Preparation
+
+                    </button>
+
+
+                    <button
+                        class="prep-btn"
+                        data-module="placement">
+
+                        🎤 Interview Preparation
+
+                    </button>
+
+
+                    <button
+                        class="prep-btn"
+                        data-module="placement">
+
+                        🚀 Project Preparation
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="placementOutput"
+                    class="analysis-output"
+                    style="display:none;">
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOAST
+    ===================================================== -->
+
+    <div
+        class="toast"
+        id="toast">
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+        /* =========================================================
+           CAREEROS API CONFIGURATION
+        ========================================================= */
+
+        const API_BASE =
+            "http://127.0.0.1:8000/api";
+
+        let studentId =
+            localStorage.getItem("careerOSStudentId");
+
+
+        /* =========================================================
+           TOAST
+        ========================================================= */
+
+        function toast(message) {
+
+            const toastElement =
+                document.getElementById("toast");
+
+            if (!toastElement) {
+
+                console.log(message);
+
+                return;
+            }
+
+            toastElement.textContent =
+                message;
+
+            toastElement.classList.add("show");
+
+            setTimeout(() => {
+
+                toastElement.classList.remove("show");
+
+            }, 3000);
+        }
+
+
+        /* =========================================================
+           API HELPER
+        ========================================================= */
+
+        async function apiRequest(url, options = {}) {
+
+            try {
+
+                const response =
+                    await fetch(url, options);
+
+                const text =
+                    await response.text();
+
+                let data;
+
+                try {
+
+                    data =
+                        text
+                            ? JSON.parse(text)
+                            : {};
+
+                } catch {
+
+                    data = {
+                        detail:
+                            text ||
+                            "Unknown server response"
+                    };
+                }
+
+
+                if (!response.ok) {
+
+                    const message =
+                        data.detail ||
+                        data.message ||
+                        "API request failed";
+
+                    throw new Error(message);
+                }
+
+
+                return data;
+
+            } catch (error) {
+
+                console.error(
+                    "API Error:",
+                    error
+                );
+
+                throw error;
+            }
+        }
+
+
+        /* =========================================================
+           OUTPUT CONTAINER
+        ========================================================= */
+
+        function getOutputContainer(type) {
+
+            const ids = {
+                resume: "resumeOutput",
+                skillGap: "skillGapOutput",
+                roadmap: "roadmapOutput",
+                placement: "placementOutput"
+            };
+
+            const existing =
+                document.getElementById(ids[type]);
+
+            if (existing) {
+
+                existing.style.display =
+                    "block";
+
+                const sectionMap = {
+                    resume: "resume",
+                    skillGap: "skill-gap-output",
+                    roadmap: "roadmap-output",
+                    placement: "placement"
+                };
+
+                const section =
+                    document.getElementById(
+                        sectionMap[type]
+                    );
+
+                if (section) {
+
+                    section.style.display =
+                        "block";
+                }
+
+                return existing;
+            }
+
+
+            const container =
+                document.createElement("div");
+
+            container.id =
+                ids[type];
+
+            container.className =
+                "analysis-output";
+
+            container.style.display =
+                "block";
+
+
+            const sectionMap = {
+                resume: "resume",
+                skillGap: "skill-gap-output",
+                roadmap: "roadmap-output",
+                placement: "placement"
+            };
+
+            const section =
+                document.getElementById(
+                    sectionMap[type]
+                );
+
+
+            if (section) {
+
+                section.style.display =
+                    "block";
+
+                section.appendChild(
+                    container
+                );
+
+            } else {
+
+                document.body.appendChild(
+                    container
+                );
+            }
+
+
+            return container;
+        }
+
+
+        /* =========================================================
+           CLEAR OUTPUT
+        ========================================================= */
+
+        function clearOutput(type) {
+
+            const container =
+                getOutputContainer(type);
+
+            container.style.display =
+                "block";
+
+            container.innerHTML = `
+
+                <div style="
+                    opacity:.7;
+                    text-align:center;
+                    padding:30px;
+                ">
+
+                    <div style="
+                        font-size:28px;
+                        margin-bottom:10px;
+                    ">
+                        ✨
+                    </div>
+
+                    <div>
+                        Generating AI analysis...
+                    </div>
+
+                </div>
+
+            `;
+        }
+
+
+        /* =========================================================
+           ESCAPE HTML
+        ========================================================= */
+
+        function escapeHTML(value) {
+
+            return String(value)
+
+                .replace(/&/g, "&amp;")
+
+                .replace(/</g, "&lt;")
+
+                .replace(/>/g, "&gt;")
+
+                .replace(/"/g, "&quot;")
+
+                .replace(/'/g, "&#039;");
+        }
+
+
+        /* =========================================================
+           FORMAT KEY
+        ========================================================= */
+
+        function formatKey(key) {
+
+            return String(key)
+
+                .replace(/_/g, " ")
+
+                .replace(
+                    /([a-z])([A-Z])/g,
+                    "$1 $2"
+                )
+
+                .replace(
+                    /\b\w/g,
+                    char => char.toUpperCase()
+                );
+        }
+
+
+        /* =========================================================
+           GENERIC OBJECT RENDERER
+        ========================================================= */
+
+        function renderValue(value, level = 0) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return `
+                    <span style="
+                        color:var(--muted);
+                    ">
+                        Not available
+                    </span>
+                `;
+            }
+
+
+            if (typeof value === "string") {
+
+                return `
+
+                    <div style="
+                        margin:5px 0;
+                        line-height:1.7;
+                    ">
+
+                        ${escapeHTML(value)}
+
+                    </div>
+
+                `;
+            }
+
+
+            if (
+                typeof value === "number" ||
+                typeof value === "boolean"
+            ) {
+
+                return `
+                    <span>
+                        ${escapeHTML(
+                            String(value)
+                        )}
+                    </span>
+                `;
+            }
+
+
+            if (Array.isArray(value)) {
+
+                if (value.length === 0) {
+
+                    return `
+                        <span style="
+                            color:var(--muted);
+                        ">
+                            None
+                        </span>
+                    `;
+                }
+
+
+                return `
+
+                    <div style="
+                        display:flex;
+                        flex-direction:column;
+                        gap:10px;
+                    ">
+
+                        ${value
+                            .map(
+                                (item, index) => `
+
+                                <div style="
+                                    padding:12px;
+                                    border-radius:12px;
+                                    background:rgba(
+                                        255,
+                                        255,
+                                        255,
+                                        .03
+                                    );
+                                    border:1px solid
+                                    rgba(
+                                        255,
+                                        255,
+                                        255,
+                                        .04
+                                    );
+                                ">
+
+                                    ${
+                                        typeof item ===
+                                        "object"
+
+                                        ? renderValue(
+                                            item,
+                                            level + 1
+                                        )
+
+                                        : `
+
+                                            <strong>
+                                                ${index + 1}.
+                                            </strong>
+
+                                            ${escapeHTML(
+                                                String(item)
+                                            )}
+
+                                        `
+                                    }
+
+                                </div>
+
+                            `
+                            )
+                            .join("")}
+
+                    </div>
+
+                `;
+            }
+
+
+            if (typeof value === "object") {
+
+                return Object.entries(value)
+
+                    .map(
+                        ([key, val]) => `
+
+                            <div style="
+                                margin-bottom:18px;
+                            ">
+
+                                <h4 style="
+                                    margin:0 0 8px;
+                                    font-size:15px;
+                                    color:#dfe4f1;
+                                ">
+
+                                    ${escapeHTML(
+                                        formatKey(key)
+                                    )}
+
+                                </h4>
+
+                                ${renderValue(
+                                    val,
+                                    level + 1
+                                )}
+
+                            </div>
+
+                        `
+                    )
+
+                    .join("");
+            }
+
+
+            return "";
+        }
+
+
+        /* =========================================================
+           SKILL BADGES
+        ========================================================= */
+
+        function renderSkillBadges(skills) {
+
+            if (!skills) {
+
+                return `
+                    <span style="
+                        color:var(--muted);
+                    ">
+                        No skills found
+                    </span>
+                `;
+            }
+
+
+            if (!Array.isArray(skills)) {
+
+                if (typeof skills === "string") {
+
+                    skills =
+                        skills
+                            .split(",")
+                            .map(
+                                skill =>
+                                    skill.trim()
+                            )
+                            .filter(Boolean);
+
+                } else {
+
+                    return renderValue(
+                        skills
+                    );
+                }
+            }
+
+
+            if (skills.length === 0) {
+
+                return `
+                    <span style="
+                        color:var(--muted);
+                    ">
+                        No skills found
+                    </span>
+                `;
+            }
+
+
+            return `
+
+                <div class="skill-badges">
+
+                    ${skills
+                        .map(
+                            skill => `
+
+                            <span class="skill-badge">
+
+                                ${escapeHTML(
+                                    skill
+                                )}
+
+                            </span>
+
+                        `
+                        )
+                        .join("")}
+
+                </div>
+
+            `;
+        }
+
+
+        /* =========================================================
+           ATS SCORE
+        ========================================================= */
+
+        function renderATSScore(score) {
+
+            if (
+                score === undefined ||
+                score === null ||
+                score === ""
+            ) {
+
+                return "";
+            }
+
+
+            let numericScore =
+                parseFloat(score);
+
+
+            if (isNaN(numericScore)) {
+
+                return "";
+            }
+
+
+            numericScore =
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        numericScore
+                    )
+                );
+
+
+            return `
+
+                <div class="ats-score">
+
+                    <div style="
+                        color:var(--muted);
+                        font-size:13px;
+                        margin-bottom:9px;
+                    ">
+
+                        ATS Compatibility Score
+
+                    </div>
+
+
+                    <div class="ats-number">
+
+                        ${numericScore}
+
+                        <span style="
+                            font-size:18px;
+                            color:var(--muted);
+                        ">
+                            /100
+                        </span>
+
+                    </div>
+
+
+                    <div class="ats-bar">
+
+                        <div
+                            class="ats-fill"
+                            style="
+                                width:${numericScore}%;
+                            ">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+        }
+
+
+        /* =========================================================
+           RESUME SECTION
+        ========================================================= */
+
+        function renderResumeSection(
+            title,
+            content
+        ) {
+
+            return `
+
+                <div class="analysis-section">
+
+                    <h3>
+                        ${escapeHTML(title)}
+                    </h3>
+
+                    ${content}
+
+                </div>
+
+            `;
+        }
+
+
+        /* =========================================================
+           RESUME ANALYSIS
+        ========================================================= */
+
+        function renderResumeAnalysis(data) {
+
+            let analysis =
+                data;
+
+
+            if (
+                data &&
+                typeof data === "object" &&
+                data.analysis &&
+                typeof data.analysis === "object"
+            ) {
+
+                analysis =
+                    data.analysis;
+
+            }
+
+            else if (
+                data &&
+                typeof data === "object" &&
+                data.resume_analysis &&
+                typeof data.resume_analysis === "object"
+            ) {
+
+                analysis =
+                    data.resume_analysis;
+
+            }
+
+            else if (
+                data &&
+                typeof data === "object" &&
+                data.data &&
+                typeof data.data === "object"
+            ) {
+
+                analysis =
+                    data.data;
+            }
+
+
+            if (
+                !analysis ||
+                typeof analysis !== "object"
+            ) {
+
+                return `
+
+                    <div class="analysis-section">
+
+                        <h3>
+                            📄 Analysis Result
+                        </h3>
+
+                        ${escapeHTML(
+                            String(analysis)
+                        )}
+
+                    </div>
+
+                `;
+            }
+
+
+            let html = `
+
+                <div style="
+                    margin-bottom:20px;
+                ">
+
+                    <h3 style="
+                        margin:0;
+                        font-size:21px;
+                    ">
+
+                        📊 Resume Intelligence
+
+                    </h3>
+
+
+                    <p style="
+                        margin:6px 0 0;
+                        color:var(--muted);
+                        font-size:13px;
+                    ">
+
+                        AI-generated analysis of your resume
+
+                    </p>
+
+                </div>
+
+            `;
+
+
+            /* ATS */
+
+            const atsScore =
+
+                analysis.ats_score ??
+
+                analysis.atsScore ??
+
+                analysis.ATS_score ??
+
+                analysis.score;
+
+
+            html +=
+                renderATSScore(
+                    atsScore
+                );
+
+
+            /* PERSONAL */
+
+            const personalFields = [];
+
+
+            if (analysis.name) {
+
+                personalFields.push(`
+
+                    <div>
+
+                        <strong>
+                            Name:
+                        </strong>
+
+                        ${escapeHTML(
+                            analysis.name
+                        )}
+
+                    </div>
+
+                `);
+            }
+
+
+            if (analysis.email) {
+
+                personalFields.push(`
+
+                    <div>
+
+                        <strong>
+                            Email:
+                        </strong>
+
+                        ${escapeHTML(
+                            analysis.email
+                        )}
+
+                    </div>
+
+                `);
+            }
+
+
+            if (analysis.phone) {
+
+                personalFields.push(`
+
+                    <div>
+
+                        <strong>
+                            Phone:
+                        </strong>
+
+                        ${escapeHTML(
+                            analysis.phone
+                        )}
+
+                    </div>
+
+                `);
+            }
+
+
+            if (
+                personalFields.length > 0
+            ) {
+
+                html +=
+                    renderResumeSection(
+                        "👤 Personal Information",
+
+                        `
+
+                            <div style="
+                                display:grid;
+                                gap:8px;
+                                font-size:14px;
+                            ">
+
+                                ${personalFields.join("")}
+
+                            </div>
+
+                        `
+                    );
+            }
+
+
+            /* SUMMARY */
+
+            const summary =
+
+                analysis.summary ||
+
+                analysis.profile_summary ||
+
+                analysis.professional_summary;
+
+
+            if (summary) {
+
+                html +=
+                    renderResumeSection(
+                        "📝 Professional Summary",
+
+                        renderValue(
+                            summary
+                        )
+                    );
+            }
+
+
+            /* SKILLS */
+
+            if (analysis.skills) {
+
+                html +=
+                    renderResumeSection(
+                        "🛠️ Skills",
+
+                        renderSkillBadges(
+                            analysis.skills
+                        )
+                    );
+            }
+
+
+            /* EDUCATION */
+
+            if (analysis.education) {
+
+                html +=
+                    renderResumeSection(
+                        "🎓 Education",
+
+                        renderValue(
+                            analysis.education
+                        )
+                    );
+            }
+
+
+            /* EXPERIENCE */
+
+            const experience =
+
+                analysis.experience ||
+
+                analysis.work_experience ||
+
+                analysis.workExperience;
+
+
+            if (experience) {
+
+                html +=
+                    renderResumeSection(
+                        "💼 Experience",
+
+                        renderValue(
+                            experience
+                        )
+                    );
+            }
+
+
+            /* PROJECTS */
+
+            if (analysis.projects) {
+
+                html +=
+                    renderResumeSection(
+                        "🚀 Projects",
+
+                        renderValue(
+                            analysis.projects
+                        )
+                    );
+            }
+
+
+            /* CERTIFICATIONS */
+
+            const certifications =
+
+                analysis.certifications ||
+
+                analysis.certificates;
+
+
+            if (certifications) {
+
+                html +=
+                    renderResumeSection(
+                        "📜 Certifications",
+
+                        renderValue(
+                            certifications
+                        )
+                    );
+            }
+
+
+            /* STRENGTHS */
+
+            if (analysis.strengths) {
+
+                html +=
+                    renderResumeSection(
+                        "💪 Strengths",
+
+                        renderValue(
+                            analysis.strengths
+                        )
+                    );
+            }
+
+
+            /* WEAKNESSES */
+
+            if (analysis.weaknesses) {
+
+                html +=
+                    renderResumeSection(
+                        "⚠️ Areas for Improvement",
+
+                        renderValue(
+                            analysis.weaknesses
+                        )
+                    );
+            }
+
+
+            /* MISSING */
+
+            const missingSections =
+
+                analysis.missing_sections ||
+
+                analysis.missingSections ||
+
+                analysis.missing;
+
+
+            if (missingSections) {
+
+                html +=
+                    renderResumeSection(
+                        "❌ Missing Sections",
+
+                        renderValue(
+                            missingSections
+                        )
+                    );
+            }
+
+
+            /* FALLBACK */
+
+            const knownKeys = [
+
+                "name",
+                "email",
+                "phone",
+                "skills",
+                "education",
+                "experience",
+                "work_experience",
+                "workExperience",
+                "projects",
+                "certifications",
+                "certificates",
+                "summary",
+                "profile_summary",
+                "professional_summary",
+                "strengths",
+                "weaknesses",
+                "missing_sections",
+                "missingSections",
+                "missing",
+                "ats_score",
+                "atsScore",
+                "ATS_score",
+                "score"
+
+            ];
+
+
+            const hasKnownData =
+                knownKeys.some(
+                    key =>
+                        analysis[key] !==
+                        undefined
+                );
+
+
+            if (!hasKnownData) {
+
+                html +=
+                    renderResumeSection(
+                        "📄 Analysis Result",
+
+                        renderValue(
+                            analysis
+                        )
+                    );
+            }
+
+
+            return html;
+        }
+
+
+        /* =========================================================
+           LOAD SAVED PROFILE
+        ========================================================= */
+
+        window.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                const savedProfile =
+                    localStorage.getItem(
+                        "careerosProfile"
+                    );
+
+
+                if (savedProfile) {
+
+                    try {
+
+                        const profile =
+                            JSON.parse(
+                                savedProfile
+                            );
+
+
+                        if (profile.name) {
+
+                            const nameInput =
+                                document.getElementById(
+                                    "profileName"
+                                );
+
+
+                            if (nameInput) {
+
+                                nameInput.value =
+                                    profile.name;
+                            }
+
+
+                            const userName =
+                                document.getElementById(
+                                    "userName"
+                                );
+
+
+                            if (userName) {
+
+                                userName.textContent =
+                                    profile.name
+                                        .split(" ")[0];
+                            }
+
+
+                            const avatar =
+                                document.getElementById(
+                                    "avatar"
+                                );
+
+
+                            if (avatar) {
+
+                                avatar.textContent =
+                                    profile.name
+                                        .charAt(0)
+                                        .toUpperCase();
+                            }
+                        }
+
+
+                        if (profile.role) {
+
+                            const roleInput =
+                                document.getElementById(
+                                    "profileRole"
+                                );
+
+
+                            if (roleInput) {
+
+                                roleInput.value =
+                                    profile.role;
+                            }
+
+
+                            const targetLabel =
+                                document.getElementById(
+                                    "targetLabel"
+                                );
+
+
+                            if (targetLabel) {
+
+                                targetLabel.textContent =
+                                    "Target: " +
+                                    profile.role;
+                            }
+                        }
+
+                    }
+
+                    catch (error) {
+
+                        console.error(
+                            "Profile loading error:",
+                            error
+                        );
+                    }
+                }
+
+
+                updateProgress();
+
+                animateBars();
+
+            }
+        );
+
+
+        /* =========================================================
+           SAVE PROFILE
+        ========================================================= */
+
+        const saveProfileButton =
+            document.getElementById(
+                "saveProfile"
+            );
+
+
+        if (saveProfileButton) {
+
+            saveProfileButton.addEventListener(
+                "click",
+                async function () {
+
+                    const name =
+                        document
+                            .getElementById(
+                                "profileName"
+                            )
+                            .value
+                            .trim();
+
+
+                    const role =
+                        document
+                            .getElementById(
+                                "profileRole"
+                            )
+                            .value;
+
+
+                    if (!name) {
+
+                        toast(
+                            "Please enter your name"
+                        );
+
+                        return;
+                    }
+
+
+                    try {
+
+                        let response;
+
+
+                        if (studentId) {
+
+                            response =
+                                await apiRequest(
+
+                                    `${API_BASE}/students/${studentId}`,
+
+                                    {
+
+                                        method:
+                                            "PATCH",
+
+                                        headers: {
+
+                                            "Content-Type":
+                                                "application/json"
+
+                                        },
+
+                                        body:
+                                            JSON.stringify({
+
+                                                name:
+                                                    name,
+
+                                                target_role:
+                                                    role
+
+                                            })
+
+                                    }
+                                );
+
+                        }
+
+                        else {
+
+                            response =
+                                await apiRequest(
+
+                                    `${API_BASE}/students`,
+
+                                    {
+
+                                        method:
+                                            "POST",
+
+                                        headers: {
+
+                                            "Content-Type":
+                                                "application/json"
+
+                                        },
+
+                                        body:
+                                            JSON.stringify({
+
+                                                name:
+                                                    name,
+
+                                                education:
+                                                    "",
+
+                                                skills:
+                                                    "",
+
+                                                projects:
+                                                    "",
+
+                                                interests:
+                                                    "",
+
+                                                target_role:
+                                                    role
+
+                                            })
+
+                                    }
+                                );
+                        }
+
+
+                        studentId =
+                            response.id ||
+                            response.student_id;
+
+
+                        if (!studentId) {
+
+                            throw new Error(
+                                "Student ID was not returned by API"
+                            );
+                        }
+
+
+                        localStorage.setItem(
+                            "careerOSStudentId",
+                            studentId
+                        );
+
+
+                        localStorage.setItem(
+                            "careerosProfile",
+
+                            JSON.stringify({
+
+                                name:
+                                    name,
+
+                                role:
+                                    role
+
+                            })
+                        );
+
+
+                        document.getElementById(
+                            "userName"
+                        ).textContent =
+                            name.split(" ")[0];
+
+
+                        document.getElementById(
+                            "avatar"
+                        ).textContent =
+                            name
+                                .charAt(0)
+                                .toUpperCase();
+
+
+                        document.getElementById(
+                            "targetLabel"
+                        ).textContent =
+                            "Target: " + role;
+
+
+                        toast(
+                            "Profile saved to CareerOS ✅"
+                        );
+
+
+                        updateProgress();
+
+                    }
+
+                    catch (error) {
+
+                        console.error(error);
+
+                        toast(
+                            "Profile error: " +
+                            error.message
+                        );
+                    }
+
+                }
+            );
+        }
+
+
+        /* =========================================================
+           RESUME UPLOAD & ANALYSIS
+        ========================================================= */
+
+        const resumeFile =
+            document.getElementById(
+                "resumeFile"
+            );
+
+
+        if (resumeFile) {
+
+            resumeFile.addEventListener(
+                "change",
+                async function () {
+
+                    const file =
+                        this.files &&
+                        this.files[0];
+
+
+                    if (!file) {
+
+                        return;
+                    }
+
+
+                    if (
+                        file.type !==
+                            "application/pdf" &&
+                        !/\.pdf$/i.test(
+                            file.name
+                        )
+                    ) {
+
+                        toast(
+                            "Please choose a PDF resume"
+                        );
+
+                        this.value = "";
+
+                        return;
+                    }
+
+
+                    if (
+                        file.size >
+                        5 * 1024 * 1024
+                    ) {
+
+                        toast(
+                            "Resume must be under 5 MB"
+                        );
+
+                        this.value = "";
+
+                        return;
+                    }
+
+
+                    if (!studentId) {
+
+                        toast(
+                            "First save your student profile"
+                        );
+
+                        this.value = "";
+
+                        return;
+                    }
+
+
+                    const fileName =
+                        document.getElementById(
+                            "fileName"
+                        );
+
+
+                    if (fileName) {
+
+                        fileName.textContent =
+                            file.name;
+                    }
+
+
+                    const output =
+                        document.getElementById(
+                            "resumeOutput"
+                        );
+
+
+                    if (output) {
+
+                        output.style.display =
+                            "block";
+
+
+                        output.innerHTML = `
+
+                            <div style="
+                                text-align:center;
+                                padding:25px;
+                                color:var(--muted);
+                            ">
+
+                                <div style="
+                                    font-size:30px;
+                                    margin-bottom:10px;
+                                ">
+                                    ✨
+                                </div>
+
+                                <div>
+                                    Uploading and analyzing resume...
+                                </div>
+
+                                <div style="
+                                    font-size:12px;
+                                    margin-top:7px;
+                                ">
+                                    AI is analyzing your resume.
+                                    Please wait.
+                                </div>
+
+                            </div>
+
+                        `;
+                    }
+
+
+                    toast(
+                        "Uploading and analyzing resume..."
+                    );
+
+
+                    const formData =
+                        new FormData();
+
+
+                    formData.append(
+                        "file",
+                        file
+                    );
+
+
+                    try {
+
+                        const data =
+                            await apiRequest(
+
+                                `${API_BASE}/resume/upload/${studentId}`,
+
+                                {
+
+                                    method:
+                                        "POST",
+
+                                    body:
+                                        formData
+
+                                }
+
+                            );
+
+
+                        console.log(
+                            "Resume analysis:",
+                            data
+                        );
+
+
+                        if (output) {
+
+                            output.style.display =
+                                "block";
+
+
+                            output.innerHTML =
+                                renderResumeAnalysis(
+                                    data
+                                );
+
+
+                            output.scrollIntoView({
+
+                                behavior:
+                                    "smooth",
+
+                                block:
+                                    "start"
+
+                            });
+                        }
+
+
+                        const status =
+                            document.getElementById(
+                                "s-resume"
+                            );
+
+
+                        if (status) {
+
+                            status.textContent =
+                                "Analyzed";
+
+                            status.className =
+                                "stat-value done";
+                        }
+
+
+                        toast(
+                            "Resume analyzed successfully ✅"
+                        );
+
+
+                        updateProgress();
+
+                    }
+
+                    catch (error) {
+
+                        console.error(
+                            "Resume error:",
+                            error
+                        );
+
+
+                        if (output) {
+
+                            output.style.display =
+                                "block";
+
+
+                            output.innerHTML = `
+
+                                <div
+                                    class="analysis-section"
+                                    style="
+                                        border-color:
+                                        rgba(
+                                            255,
+                                            93,
+                                            115,
+                                            .35
+                                        );
+                                    "
+                                >
+
+                                    <h3 style="
+                                        color:#ff7183;
+                                    ">
+
+                                        ❌ Resume Analysis Failed
+
+                                    </h3>
+
+
+                                    <p style="
+                                        color:var(--muted);
+                                        margin-top:8px;
+                                    ">
+
+                                        ${escapeHTML(
+                                            error.message
+                                        )}
+
+                                    </p>
+
+                                </div>
+
+                            `;
+                        }
+
+
+                        toast(
+                            "Resume analysis failed: " +
+                            error.message
+                        );
+                    }
+
+                }
+            );
+        }
+
+
+        /* =========================================================
+           SKILL GAP
+        ========================================================= */
+
+        async function runSkillGap() {
+
+            if (!studentId) {
+
+                toast(
+                    "First save your profile"
+                );
+
+                return;
+            }
+
+
+            const targetRole =
+                document.getElementById(
+                    "profileRole"
+                ).value;
+
+
+            if (!targetRole) {
+
+                toast(
+                    "Please select your target role"
+                );
+
+                return;
+            }
+
+
+            clearOutput(
+                "skillGap"
+            );
+
+
+            const section =
+                document.getElementById(
+                    "skill-gap-output"
+                );
+
+
+            if (section) {
+
+                section.style.display =
+                    "block";
+            }
+
+
+            toast(
+                "Analyzing your skill gap..."
+            );
+
+
+            try {
+
+                const data =
+                    await apiRequest(
+
+                        `${API_BASE}/skill-gap`,
+
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    student_id:
+                                        Number(
+                                            studentId
+                                        ),
+
+                                    target_role:
+                                        targetRole
+
+                                })
+
+                        }
+
+                    );
+
+
+                console.log(
+                    "Skill Gap:",
+                    data
+                );
+
+
+                const output =
+                    getOutputContainer(
+                        "skillGap"
+                    );
+
+
+                output.innerHTML = `
+
+                    <div style="
+                        margin-bottom:20px;
+                    ">
+
+                        <h3 style="
+                            font-size:21px;
+                        ">
+                            🎯 Skill Gap Analysis
+                        </h3>
+
+                        <p style="
+                            margin-top:6px;
+                            color:var(--muted);
+                            font-size:13px;
+                        ">
+
+                            Target Role:
+                            <strong style="
+                                color:#c4b5fd;
+                            ">
+                                ${escapeHTML(
+                                    targetRole
+                                )}
+                            </strong>
+
+                        </p>
+
+                    </div>
+
+                    ${renderValue(data)}
+
+                `;
+
+
+                const status =
+                    document.getElementById(
+                        "s-gap"
+                    );
+
+
+                if (status) {
+
+                    status.textContent =
+                        "Analyzed";
+
+                    status.className =
+                        "stat-value done";
+                }
+
+
+                toast(
+                    "Skill gap analysis completed ✅"
+                );
+
+
+                updateProgress();
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+
+                const output =
+                    getOutputContainer(
+                        "skillGap"
+                    );
+
+
+                output.innerHTML = `
+
+                    <div style="
+                        color:#ff7183;
+                    ">
+
+                        ❌
+                        ${escapeHTML(
+                            error.message
+                        )}
+
+                    </div>
+
+                `;
+
+
+                toast(
+                    "Skill gap failed: " +
+                    error.message
+                );
+            }
+        }
+
+
+        /* =========================================================
+           ROADMAP
+        ========================================================= */
+
+        async function runRoadmap() {
+
+            if (!studentId) {
+
+                toast(
+                    "First save your profile"
+                );
+
+                return;
+            }
+
+
+            const targetRole =
+                document.getElementById(
+                    "profileRole"
+                ).value;
+
+
+            if (!targetRole) {
+
+                toast(
+                    "Please select your target role"
+                );
+
+                return;
+            }
+
+
+            clearOutput(
+                "roadmap"
+            );
+
+
+            const section =
+                document.getElementById(
+                    "roadmap-output"
+                );
+
+
+            if (section) {
+
+                section.style.display =
+                    "block";
+            }
+
+
+            toast(
+                "Generating career roadmap..."
+            );
+
+
+            try {
+
+                const data =
+                    await apiRequest(
+
+                        `${API_BASE}/roadmap`,
+
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    student_id:
+                                        Number(
+                                            studentId
+                                        ),
+
+                                    target_role:
+                                        targetRole
+
+                                })
+
+                        }
+
+                    );
+
+
+                console.log(
+                    "Roadmap:",
+                    data
+                );
+
+
+                const output =
+                    getOutputContainer(
+                        "roadmap"
+                    );
+
+
+                output.innerHTML = `
+
+                    <div style="
+                        margin-bottom:20px;
+                    ">
+
+                        <h3 style="
+                            font-size:21px;
+                        ">
+                            🗺️ Career Roadmap
+                        </h3>
+
+                        <p style="
+                            margin-top:6px;
+                            color:var(--muted);
+                            font-size:13px;
+                        ">
+
+                            Target Role:
+                            <strong style="
+                                color:#c4b5fd;
+                            ">
+                                ${escapeHTML(
+                                    targetRole
+                                )}
+                            </strong>
+
+                        </p>
+
+                    </div>
+
+                    ${renderValue(
+                        data.roadmap ||
+                        data
+                    )}
+
+                `;
+
+
+                const status =
+                    document.getElementById(
+                        "s-road"
+                    );
+
+
+                if (status) {
+
+                    status.textContent =
+                        "Generated";
+
+                    status.className =
+                        "stat-value done";
+                }
+
+
+                toast(
+                    "Career roadmap generated ✅"
+                );
+
+
+                updateProgress();
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+
+                const output =
+                    getOutputContainer(
+                        "roadmap"
+                    );
+
+
+                output.innerHTML = `
+
+                    <div style="
+                        color:#ff7183;
+                    ">
+
+                        ❌
+                        ${escapeHTML(
+                            error.message
+                        )}
+
+                    </div>
+
+                `;
+
+
+                toast(
+                    "Roadmap failed: " +
+                    error.message
+                );
+            }
+        }
+
+
+        /* =========================================================
+           PLACEMENT
+        ========================================================= */
+
+        async function runPlacement() {
+
+            if (!studentId) {
+
+                toast(
+                    "First save your profile"
+                );
+
+                return;
+            }
+
+
+            const targetRole =
+                document.getElementById(
+                    "profileRole"
+                ).value;
+
+
+            if (!targetRole) {
+
+                toast(
+                    "Please select your target role"
+                );
+
+                return;
+            }
+
+
+            clearOutput(
+                "placement"
+            );
+
+
+            toast(
+                "Generating placement preparation..."
+            );
+
+
+            try {
+
+                const data =
+                    await apiRequest(
+
+                        `${API_BASE}/placement`,
+
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    student_id:
+                                        Number(
+                                            studentId
+                                        ),
+
+                                    target_role:
+                                        targetRole
+
+                                })
+
+                        }
+
+                    );
+
+
+                console.log(
+                    "Placement:",
+                    data
+                );
+
+
+                const output =
+                    getOutputContainer(
+                        "placement"
+                    );
+
+
+                output.style.display =
+                    "block";
+
+
+                output.innerHTML = `
+
+                    <div style="
+                        margin-bottom:20px;
+                    ">
+
+                        <h3 style="
+                            font-size:21px;
+                        ">
+                            💼 Placement Preparation
+                        </h3>
+
+                        <p style="
+                            margin-top:6px;
+                            color:var(--muted);
+                            font-size:13px;
+                        ">
+
+                            Target Role:
+                            <strong style="
+                                color:#c4b5fd;
+                            ">
+                                ${escapeHTML(
+                                    targetRole
+                                )}
+                            </strong>
+
+                        </p>
+
+                    </div>
+
+                    ${renderValue(data)}
+
+                `;
+
+
+                const status =
+                    document.getElementById(
+                        "s-place"
+                    );
+
+
+                if (status) {
+
+                    status.textContent =
+                        "Ready";
+
+                    status.className =
+                        "stat-value done";
+                }
+
+
+                toast(
+                    "Placement preparation generated ✅"
+                );
+
+
+                updateProgress();
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+
+                const output =
+                    getOutputContainer(
+                        "placement"
+                    );
+
+
+                output.style.display =
+                    "block";
+
+
+                output.innerHTML = `
+
+                    <div style="
+                        color:#ff7183;
+                    ">
+
+                        ❌
+                        ${escapeHTML(
+                            error.message
+                        )}
+
+                    </div>
+
+                `;
+
+
+                toast(
+                    "Placement failed: " +
+                    error.message
+                );
+            }
+        }
+
+
+        /* =========================================================
+           MODULE BUTTONS
+        ========================================================= */
+
+        document
+            .querySelectorAll(".module-btn")
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const module =
+                            this.dataset.module;
+
+
+                        if (
+                            module ===
+                            "resume"
+                        ) {
+
+                            document
+                                .getElementById(
+                                    "resume"
+                                )
+                                ?.scrollIntoView({
+
+                                    behavior:
+                                        "smooth"
+
+                                });
+
+                        }
+
+
+                        else if (
+                            module ===
+                            "skill-gap"
+                        ) {
+
+                            runSkillGap();
+
+                        }
+
+
+                        else if (
+                            module ===
+                            "roadmap"
+                        ) {
+
+                            runRoadmap();
+
+                        }
+
+
+                        else if (
+                            module ===
+                            "placement"
+                        ) {
+
+                            runPlacement();
+
+                        }
+
+                    }
+                );
+
+            });
+
+
+        /* =========================================================
+           SIDEBAR MODULE BUTTONS
+        ========================================================= */
+
+        document
+            .querySelectorAll(".module-nav")
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const module =
+                            this.dataset.module;
+
+
+                        if (
+                            module ===
+                            "skill-gap"
+                        ) {
+
+                            runSkillGap();
+
+                        }
+
+
+                        if (
+                            module ===
+                            "roadmap"
+                        ) {
+
+                            runRoadmap();
+
+                        }
+
+
+                        if (
+                            module ===
+                            "placement"
+                        ) {
+
+                            runPlacement();
+
+                        }
+
+                    }
+                );
+
+            });
+
+
+        /* =========================================================
+           PLACEMENT BUTTONS
+        ========================================================= */
+
+        document
+            .querySelectorAll(".prep-btn")
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        runPlacement();
+
+                    }
+                );
+
+            });
+
+
+        /* =========================================================
+           START CAREER ANALYSIS
+        ========================================================= */
+
+        const startBtn =
+            document.getElementById(
+                "startBtn"
+            );
+
+
+        if (startBtn) {
+
+            startBtn.addEventListener(
+                "click",
+                async function () {
+
+                    if (!studentId) {
+
+                        toast(
+                            "First save your profile"
+                        );
+
+                        document
+                            .getElementById(
+                                "profile"
+                            )
+                            ?.scrollIntoView({
+
+                                behavior:
+                                    "smooth"
+
+                            });
+
+                        return;
+                    }
+
+
+                    const resumeStatus =
+                        document.getElementById(
+                            "s-resume"
+                        )?.textContent;
+
+
+                    if (
+                        resumeStatus !==
+                        "Analyzed"
+                    ) {
+
+                        toast(
+                            "Upload your resume first"
+                        );
+
+                        document
+                            .getElementById(
+                                "resume"
+                            )
+                            ?.scrollIntoView({
+
+                                behavior:
+                                    "smooth"
+
+                            });
+
+                        return;
+                    }
+
+
+                    toast(
+                        "Starting CareerOS analysis..."
+                    );
+
+
+                    try {
+
+                        await runSkillGap();
+
+                        await runRoadmap();
+
+                        await runPlacement();
+
+
+                        toast(
+                            "Career analysis completed 🚀"
+                        );
+
+                    }
+
+                    catch (error) {
+
+                        console.error(
+                            error
+                        );
+
+                        toast(
+                            "Career analysis failed"
+                        );
+                    }
+
+                }
+            );
+        }
+
+
+        /* =========================================================
+           TOUR
+        ========================================================= */
+
+        const tourBtn =
+            document.getElementById(
+                "tourBtn"
+            );
+
+
+        if (tourBtn) {
+
+            tourBtn.addEventListener(
+                "click",
+                function () {
+
+                    toast(
+                        "CareerOS → Resume → Skill Gap → Roadmap → Placement"
+                    );
+
+                }
+            );
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        document
+            .querySelectorAll(
+                ".nav-item[data-section]"
+            )
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        document
+                            .querySelectorAll(
+                                ".nav-item"
+                            )
+                            .forEach(item => {
+
+                                item.classList.remove(
+                                    "active"
+                                );
+
+                            });
+
+
+                        this.classList.add(
+                            "active"
+                        );
+
+
+                        const section =
+                            this.dataset.section;
+
+
+                        const element =
+                            document.getElementById(
+                                section
+                            );
+
+
+                        if (element) {
+
+                            element.scrollIntoView({
+
+                                behavior:
+                                    "smooth"
+
+                            });
+
+                        }
+
+                    }
+                );
+
+            });
+
+
+        /* =========================================================
+           PROGRESS
+        ========================================================= */
+
+        function updateProgress() {
+
+            let completed = 0;
+
+
+            const resume =
+                document.getElementById(
+                    "s-resume"
+                )?.textContent;
+
+
+            const gap =
+                document.getElementById(
+                    "s-gap"
+                )?.textContent;
+
+
+            const roadmap =
+                document.getElementById(
+                    "s-road"
+                )?.textContent;
+
+
+            const placement =
+                document.getElementById(
+                    "s-place"
+                )?.textContent;
+
+
+            if (
+                resume ===
+                "Analyzed"
+            ) {
+
+                completed++;
+            }
+
+
+            if (
+                gap ===
+                "Analyzed"
+            ) {
+
+                completed++;
+            }
+
+
+            if (
+                roadmap ===
+                "Generated"
+            ) {
+
+                completed++;
+            }
+
+
+            if (
+                placement ===
+                "Ready"
+            ) {
+
+                completed++;
+            }
+
+
+            const percent =
+                Math.round(
+                    (completed / 4) *
+                    100
+                );
+
+
+            const progress =
+                document.getElementById(
+                    "progressPercent"
+                );
+
+
+            if (progress) {
+
+                progress.textContent =
+                    percent + "%";
+
+
+                const circle =
+                    progress.parentElement;
+
+
+                if (circle) {
+
+                    const degree =
+                        (percent / 100) *
+                        360;
+
+
+                    circle.style.background = `
+
+                        radial-gradient(
+                            circle,
+                            #07101f 56%,
+                            transparent 57%
+                        ),
+
+                        conic-gradient(
+                            #8b5cf6 0deg,
+                            #22d3ee ${degree}deg,
+                            rgba(255,255,255,.07)
+                            ${degree}deg
+                        )
+
+                    `;
+                }
+            }
+        }
+
+
+        /* =========================================================
+           ANIMATE SKILL BARS
+        ========================================================= */
+
+        function animateBars() {
+
+            setTimeout(() => {
+
+                document
+                    .querySelectorAll(
+                        ".bar-fill"
+                    )
+                    .forEach(bar => {
+
+                        if (
+                            bar.dataset.width
+                        ) {
+
+                            bar.style.width =
+                                bar.dataset.width;
+                        }
+
+                    });
+
+            }, 300);
+        }
+
+    </script>
+
+</body>
+
+</html>
